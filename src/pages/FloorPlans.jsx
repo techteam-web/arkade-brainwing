@@ -22,6 +22,8 @@ const FloorPlans = () => {
     { id: 'A', label: 'Wing A', image: '/images/floorplans/Wing-A-TypicalFloorPlan.jpg' },
     { id: 'B', label: 'Wing B', image: '/images/floorplans/Wing-B-TypicalFloorPlan.jpg' },
     { id: 'C', label: 'Wing C', image: '/images/floorplans/Wing-C-TypicalFloorPlan.jpg' },
+    { id: 'D', label: 'Ground Floor Plan', image: '/images/floorplans/Ground-floorplan.jpg' },
+    { id: 'E', label: 'Amenity Floor Plan', image: '/images/floorplans/Amenities.jpg' },
   ];
 
   const currentWing = wings.find(w => w.id === activeWing);
@@ -292,11 +294,14 @@ const FloorPlans = () => {
       {/* Wing Selector */}
       <div 
         ref={controlsRef}
-        className="absolute top-28 md:top-32 left-1/2 -translate-x-1/2 z-20"
-        style={{ transform: 'translateY(-10px)' }}
+        className="absolute top-28 md:top-[50vh]  left-30  z-20"
+        style={{ transform: 'translateY(-10px)',
+            transformOrigin: 'center center',
+            transform: 'translate(-50%,-50%)'
+         }}
       >
         <div 
-          className="flex items-center gap-1 p-1.5 rounded-2xl"
+          className="flex flex-col items-center gap-1 p-1.5 rounded-2xl"
           style={{
             background: 'linear-gradient(135deg, rgba(30,25,35,0.9) 0%, rgba(20,18,25,0.95) 100%)',
             backdropFilter: 'blur(20px)',

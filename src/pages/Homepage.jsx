@@ -28,8 +28,6 @@ const Homepage = () => {
   const quickCardsRef = useRef(null);
   const statsRef = useRef(null);
   const bottomNavRef = useRef(null);
-  const bookButtonRef = useRef(null);
-  const topRightControlsRef = useRef(null);
   const menuHeadingRef = useRef(null);
 
   // Menu items data
@@ -93,9 +91,9 @@ const Homepage = () => {
 
   // Stats data
   const stats = [
-    { value: '39', label: 'Years' },
+    { value: '39+', label: 'Years' },
     { value: '31', label: 'Projects' },
-    { value: '5500+', label: 'Families' },
+    { value: '5500+', label: 'Happy Families' },
   ];
 
   // Initial page load animations
@@ -217,19 +215,15 @@ const Homepage = () => {
         { opacity: 1, y: 0, duration: 0.4 }, '-=0.3');
 
       // Show book button
-      tl.fromTo(bookButtonRef.current,
-        { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, '-=0.3');
+     
 
       // Show top right controls
-      tl.fromTo(topRightControlsRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3 }, '-=0.4');
+      
 
     } else if (menuContainerRef.current && contentRef.current) {
       const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
 
-      tl.to([menuCardRef.current, quickCardsRef.current, statsRef.current, bottomNavRef.current, bookButtonRef.current, topRightControlsRef.current, menuHeadingRef.current],
+      tl.to([menuCardRef.current, quickCardsRef.current, statsRef.current, bottomNavRef.current, menuHeadingRef.current],
         { opacity: 0, duration: 0.3 });
 
       tl.set(menuContainerRef.current, { display: 'none' });
@@ -371,50 +365,7 @@ const Homepage = () => {
       </div>
 
       {/* Top Right Controls - Menu State */}
-      <div 
-        ref={topRightControlsRef}
-        className="absolute top-8 right-8 md:top-12 md:right-12 lg:top-16 lg:right-16 z-20"
-        style={{ display: isMenuOpen ? 'flex' : 'none', opacity: 0 }}
-      >
-        <div className="flex items-center gap-3">
-          <button
-            className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            <svg className="w-5 h-5 text-white/60 group-hover:text-amber-200/80 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </button>
-          <button
-            className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            <svg className="w-5 h-5 text-white/60 group-hover:text-amber-200/80 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-            </svg>
-          </button>
-          <button
-            className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            <svg className="w-5 h-5 text-white/60 group-hover:text-amber-200/80 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
+      
 
       {/* Initial Content State */}
       <div 
@@ -902,28 +853,7 @@ const Homepage = () => {
             </div>
 
             {/* Book Site Visit Button */}
-            <button
-              ref={bookButtonRef}
-              className="group relative px-6 py-3 md:px-8 md:py-4 overflow-hidden transition-all duration-500 hover:scale-105"
-              style={{ 
-                fontFamily: 'Arboria, sans-serif',
-                background: 'linear-gradient(135deg, #d4956a 0%, #c47a4a 40%, #a85a35 100%)',
-                boxShadow: '0 0 30px rgba(200, 130, 80, 0.25), 0 15px 40px rgba(0,0,0,0.4)',
-                borderRadius: '14px',
-              }}
-            >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div 
-                  className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"
-                  style={{
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)'
-                  }}
-                />
-              </div>
-              <span className="relative z-10 text-white text-xs font-medium tracking-[0.2em] uppercase">
-                Book Site Visit
-              </span>
-            </button>
+           
           </div>
         </div>
       </div>
