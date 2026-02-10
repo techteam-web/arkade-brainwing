@@ -7,6 +7,7 @@ import {
 import Homepage from "./pages/Homepage";
 import FloorPlans from "./pages/FloorPlans";
 import Viewspage from "./pages/Viewspage";
+import Locations from "./pages/Locations";
 
 // Placeholder components for other pages (we'll build these next)
 const PlaceholderPage = ({ title }) => {
@@ -51,8 +52,6 @@ const PlaceholderPage = ({ title }) => {
   );
 };
 
-const Views = () => <PlaceholderPage title="Views" />;
-const Locations = () => <PlaceholderPage title="Locations" />;
 const Apartments = () => <PlaceholderPage title="Apartments" />;
 const Amenities = () => <PlaceholderPage title="Amenities" />;
 

@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 
 const Homepage = () => {
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [activeMenuItem, setActiveMenuItem] = useState(0);
+  const [skipIntroAnimation, setSkipIntroAnimation] = useState(false);
   const navigate = useNavigate();
   
   // Refs for GSAP animations
@@ -29,6 +31,16 @@ const Homepage = () => {
   const statsRef = useRef(null);
   const bottomNavRef = useRef(null);
   const menuHeadingRef = useRef(null);
+
+  // Check if we should open menu directly (coming back from another page)
+  useEffect(() => {
+    if (location.state?.menuOpen) {
+      setIsMenuOpen(true);
+      setSkipIntroAnimation(true);
+      // Clear the state so refreshing doesn't keep menu open
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Menu items data
   const menuItems = [
@@ -98,6 +110,20 @@ const Homepage = () => {
 
   // Initial page load animations
   useEffect(() => {
+    // Skip intro animation if coming back with menu open
+    if (skipIntroAnimation) {
+      // Set everything to visible immediately
+      gsap.set([logoRef.current, labelRef.current, headingRef.current, subheadingRef.current, taglineRef.current, buttonRef.current, bottomControlsRef.current, accentLineRef.current, overlayRef.current], {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+        clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)',
+      });
+      gsap.set(overlayRef.current, { opacity: 0 });
+      return;
+    }
+
     const ctx = gsap.context(() => {
       gsap.set([logoRef.current, labelRef.current, headingRef.current, subheadingRef.current, taglineRef.current, buttonRef.current, bottomControlsRef.current, accentLineRef.current], {
         opacity: 0,
@@ -164,12 +190,26 @@ const Homepage = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [skipIntroAnimation]);
 
   // Menu open/close animations
   useEffect(() => {
     if (isMenuOpen) {
       const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+      
+      // If skipping intro, set content to hidden immediately
+      if (skipIntroAnimation) {
+        gsap.set(contentRef.current, { display: 'none', opacity: 0 });
+        gsap.set(menuContainerRef.current, { display: 'flex' });
+        gsap.set(menuCardRef.current, { opacity: 1, x: 0, scale: 1 });
+        gsap.set(menuItemsRef.current, { opacity: 1, x: 0, scale: 1 });
+        gsap.set(menuHeadingRef.current, { opacity: 1, y: 0 });
+        gsap.set(quickCardsRef.current?.children || [], { opacity: 1, y: 0, scale: 1 });
+        gsap.set(statsRef.current, { opacity: 1 });
+        gsap.set(bottomNavRef.current, { opacity: 1, y: 0 });
+        setSkipIntroAnimation(false); // Reset for next time
+        return;
+      }
       
       // Animate content out
       tl.to(contentRef.current, {
@@ -214,12 +254,6 @@ const Homepage = () => {
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.4 }, '-=0.3');
 
-      // Show book button
-     
-
-      // Show top right controls
-      
-
     } else if (menuContainerRef.current && contentRef.current) {
       const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
 
@@ -236,7 +270,7 @@ const Homepage = () => {
         ease: 'power3.out'
       });
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpen, skipIntroAnimation]);
 
   const handleMenuItemClick = (path, index) => {
     setActiveMenuItem(index);
@@ -363,9 +397,6 @@ const Homepage = () => {
           onClick={() => setIsMenuOpen(false)}
         />
       </div>
-
-      {/* Top Right Controls - Menu State */}
-      
 
       {/* Initial Content State */}
       <div 
@@ -851,9 +882,6 @@ const Homepage = () => {
                 </div>
               ))}
             </div>
-
-            {/* Book Site Visit Button */}
-           
           </div>
         </div>
       </div>

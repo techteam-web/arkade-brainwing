@@ -18,7 +18,7 @@ const Viewspage = () => {
   
   // State
   const [activeWing, setActiveWing] = useState('a');
-  const [activeFloor, setActiveFloor] = useState(0); // Index 0-6
+  const [activeFloor, setActiveFloor] = useState(6); // Index 6 = Floor 21 (default)
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuExpanded, setIsMenuExpanded] = useState(true);
   const [isAutorotating, setIsAutorotating] = useState(true);
@@ -204,7 +204,7 @@ const Viewspage = () => {
     const viewer = new Marzipano.Viewer(panoRef.current, viewerOpts);
     marzipanoViewerRef.current = viewer;
 
-    // Load initial scene (Wing A, Floor 3)
+    // Load initial scene (Wing A, Floor 21)
     loadScene(activeWing, activeFloor);
 
     // Cleanup
@@ -263,6 +263,9 @@ const Viewspage = () => {
         { opacity: 1, duration: 0.5, ease: 'power2.out' }
       );
     }
+  };
+  const handleBackToMenu = () => {
+    navigate("/", { state: { menuOpen: true } });
   };
 
   const currentFloor = getCurrentFloor();
@@ -397,7 +400,7 @@ const Viewspage = () => {
       {/* Back Button */}
       <button
         ref={backButtonRef}
-        onClick={() => navigate('/')}
+        onClick={handleBackToMenu}
         className="absolute top-24 md:top-28 lg:top-32 left-6 md:left-8 z-20 flex items-center gap-2.5 px-4 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 group"
         style={{
           background: 'rgba(20,18,25,0.75)',
