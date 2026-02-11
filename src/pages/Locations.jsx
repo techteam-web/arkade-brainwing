@@ -31,19 +31,19 @@ const Locations = () => {
       id: "connectivity",
       name: "Excellent Connectivity",
       color: "#3b82f6",
-      icon: "🚇",
+      
     },
-    { id: "shopping", name: "Shopping Avenues", color: "#f59e0b", icon: "🛍️" },
+    { id: "shopping", name: "Shopping Avenues", color: "#f59e0b",},
     {
       id: "hotels",
       name: "Hotels & Restaurants",
       color: "#ef4444",
-      icon: "🏨",
+      
     },
-    { id: "hospitals", name: "Hospitals", color: "#22c55e", icon: "🏥" },
-    { id: "education", name: "Education Hub", color: "#8b5cf6", icon: "🎓" },
-    { id: "leisure", name: "Leisure", color: "#ec4899", icon: "🎭" },
-    { id: "business", name: "Business Hub", color: "#06b6d4", icon: "🏢" },
+    { id: "hospitals", name: "Hospitals", color: "#22c55e",},
+    { id: "education", name: "Education Hub", color: "#8b5cf6",},
+    { id: "leisure", name: "Leisure", color: "#ec4899",},
+    { id: "business", name: "Business Hub", color: "#06b6d4",},
   ];
 
   // All hotspot data extracted from data.js (positions in radians)
@@ -1087,7 +1087,7 @@ const Locations = () => {
 
                     <div className="relative flex items-center gap-3">
                       {/* Category icon */}
-                      <div
+                      {/* <div
                         className="w-8 h-8 rounded-lg flex items-center justify-center text-base transition-all duration-300"
                         style={{
                           background:
@@ -1101,7 +1101,7 @@ const Locations = () => {
                         }}
                       >
                         {category.icon}
-                      </div>
+                      </div> */}
 
                       <span
                         className={`text-sm transition-colors duration-300 ${
@@ -1153,7 +1153,7 @@ const Locations = () => {
           ) : (
             /* Collapsed State */
             <div className="flex items-center gap-3 px-1">
-              <div
+              {/* <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
                 style={{
                   background:
@@ -1163,10 +1163,10 @@ const Locations = () => {
                 }}
               >
                 {currentCategory?.icon || "📍"}
-              </div>
-              <div className="text-right">
+              </div> */}
+              <div className="text-center">
                 <span
-                  className="text-white/90 text-sm font-medium block truncate max-w-[100px]"
+                  className="text-white/90 text-sm font-medium block truncate max-w-40"
                   style={{ fontFamily: "Arboria, sans-serif" }}
                 >
                   {currentCategory?.name || "Locations"}
@@ -1175,7 +1175,7 @@ const Locations = () => {
                   className="text-white/45 text-[10px]"
                   style={{ fontFamily: "Arboria, sans-serif" }}
                 >
-                  {getMarkerCount(activeCategory)} markers
+                  {getMarkerCount(activeCategory)} Locations
                 </span>
               </div>
             </div>
